@@ -1,4 +1,4 @@
-package com.hotel.management.cadastros.quarto.ui;
+package com.hotel.management.hotel.quarto.ui;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hotel.management.cadastros.quarto.domain.IQuartoService;
-import com.hotel.management.cadastros.quarto.domain.Quarto;
-import com.hotel.management.cadastros.quarto.domain.cmd.AtualizarQuarto;
-import com.hotel.management.cadastros.quarto.domain.cmd.CriarQuarto;
+import com.hotel.management.hotel.quarto.domain.IQuartoService;
+import com.hotel.management.hotel.quarto.domain.Quarto;
+import com.hotel.management.hotel.quarto.domain.cmd.AtualizarQuarto;
+import com.hotel.management.hotel.quarto.domain.cmd.CriarQuarto;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

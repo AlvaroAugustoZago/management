@@ -1,16 +1,19 @@
-package com.hotel.management.cadastros.quarto.domain;
+package com.hotel.management.reserva;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
 import com.hotel.management.hotel.quarto.domain.Quarto;
+import com.hotel.management.reserva.domain.Reserva;
+import com.hotel.management.reserva.domain.events.CheckinRealizado;
 
-public class QuartoTest {
+public class ReservaTest {
 
     @Test
-    void dadaInformacoesDeveCriarUmQuartoNaoNulo() {
+    void dadoClienteQuartoDeveCriarUmaReserva() {
         Quarto quarto = Quarto.builder()
                 .tipo(Quarto.Tipo.SUITE)
                 .capacidade(3)
@@ -18,11 +21,14 @@ public class QuartoTest {
                 .precoPorNoite(95d)
                 .build();
 
-        assertNotNull(quarto);
+        Reserva reserva = Reserva.of(quarto);
+
+        assertNotNull(reserva);
+        assertNotNull(reserva.getId());
     }
 
     @Test
-    void dadoInformacoesDeveAtualizarQuartoEManterNaoNulo() {
+    void dadoReservaDeveRealizarCheckin() {
         Quarto quarto = Quarto.builder()
                 .tipo(Quarto.Tipo.SUITE)
                 .capacidade(3)
@@ -30,7 +36,11 @@ public class QuartoTest {
                 .precoPorNoite(95d)
                 .build();
 
-        quarto.update().capacidade(2).apply();
-        assertEquals(2, quarto.getCapacidade());
+        Reserva reserva = Reserva.of(quarto);
+
+        CheckinRealizado evt = reserva.realizarCheckin();
+        assertNotNull(evt);
+        assertNotNull(evt.getQuarto());
     }
+
 }

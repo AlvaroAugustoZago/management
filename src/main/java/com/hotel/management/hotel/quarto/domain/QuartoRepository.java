@@ -1,4 +1,4 @@
-package com.hotel.management.cadastros.quarto.domain;
+package com.hotel.management.hotel.quarto.domain;
 
 import java.util.UUID;
 

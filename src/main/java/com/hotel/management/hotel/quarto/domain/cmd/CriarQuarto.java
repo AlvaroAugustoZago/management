@@ -1,10 +1,13 @@
-package com.hotel.management.cadastros.quarto.domain.cmd;
+package com.hotel.management.hotel.quarto.domain.cmd;
 
-import com.hotel.management.cadastros.quarto.domain.Quarto.Estado;
-import com.hotel.management.cadastros.quarto.domain.Quarto.Tipo;
+import com.hotel.management.hotel.quarto.domain.Quarto.Estado;
+import com.hotel.management.hotel.quarto.domain.Quarto.Tipo;
+
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public final class CriarQuarto {
 
     private final Tipo tipo;

@@ -1,4 +1,4 @@
-package com.hotel.management.cadastros.quarto.domain;
+package com.hotel.management.hotel.quarto.domain;
 
 import java.util.UUID;
 
@@ -44,7 +44,7 @@ public final class Quarto {
         this.descricao = descricao;
         this.precoPorNoite = precoPorNoite;
         this.estado = Estado.DESOCUPADO;
-        
+
     }
 
     public QuartoForm update() {
@@ -57,11 +57,20 @@ public final class Quarto {
         });
     }
 
+    public void ocuparQuarto() {
+        this.estado = Estado.OCUPADO;
+    }
+
+    public void desocuparQuarto() {
+        this.estado = Estado.DESOCUPADO;
+    }
+
     public enum Tipo {
         SUITE, STANDARD, LUXO
     }
 
     public enum Estado {
-        OCUPADO, DESOCUPADO;
+        OCUPADO,
+        DESOCUPADO;
     }
 }

@@ -1,20 +1,22 @@
-package com.hotel.management.cadastros.quarto.app;
+package com.hotel.management.hotel.quarto.app;
 
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.hotel.management.cadastros.quarto.domain.IQuartoService;
-import com.hotel.management.cadastros.quarto.domain.Quarto;
-import com.hotel.management.cadastros.quarto.domain.QuartoRepository;
-import com.hotel.management.cadastros.quarto.domain.cmd.AtualizarQuarto;
-import com.hotel.management.cadastros.quarto.domain.cmd.CriarQuarto;
-import com.hotel.management.cadastros.quarto.domain.events.QuartoCriado;
+import com.hotel.management.hotel.quarto.domain.IQuartoService;
+import com.hotel.management.hotel.quarto.domain.Quarto;
+import com.hotel.management.hotel.quarto.domain.QuartoRepository;
+import com.hotel.management.hotel.quarto.domain.cmd.AtualizarQuarto;
+import com.hotel.management.hotel.quarto.domain.cmd.CriarQuarto;
+import com.hotel.management.hotel.quarto.domain.events.QuartoCriado;
+import com.hotel.management.reserva.domain.events.CheckinRealizado;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 
 import lombok.AllArgsConstructor;
 
@@ -57,8 +59,16 @@ public class QuartoService implements IQuartoService {
         repository.delete(quarto);
     }
 
-    @TransactionalEventListener
-    public void on(QuartoCriado event) {
+    // @TransactionalEventListener
+    @EventListener
+    public void on(CheckinRealizado event) {
+        Quarto quarto = repository.findById(event.getQuarto()).get();
 
+        quarto.ocuparQuarto();
+        repository.save(quarto);
+    }
+
+    public Quarto getById(UUID quarto) {
+        return repository.findById(quarto).get();
     }
 }

@@ -1,4 +1,4 @@
-package com.hotel.management.cadastros.quarto.domain.events;
+package com.hotel.management.hotel.quarto.domain.events;
 
 import java.time.Instant;
 
