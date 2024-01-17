@@ -11,6 +11,7 @@ import com.hotel.management.hotel.quarto.domain.cmd.AtualizarQuarto;
 import com.hotel.management.hotel.quarto.domain.cmd.CriarQuarto;
 import com.hotel.management.hotel.quarto.domain.events.QuartoCriado;
 import com.hotel.management.reserva.domain.events.CheckinRealizado;
+import com.hotel.management.reserva.domain.events.CheckoutRealizado;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -62,6 +63,14 @@ public class QuartoService implements IQuartoService {
     // @TransactionalEventListener
     @EventListener
     public void on(CheckinRealizado event) {
+        Quarto quarto = repository.findById(event.getQuarto()).get();
+
+        quarto.ocuparQuarto();
+        repository.save(quarto);
+    }
+
+    @EventListener
+    public void on(CheckoutRealizado event) {
         Quarto quarto = repository.findById(event.getQuarto()).get();
 
         quarto.ocuparQuarto();

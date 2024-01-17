@@ -29,7 +29,14 @@ public class ReservaService implements IReservaService {
     public void realizarCheckin(UUID idReserva) {
         Reserva reserva = repository.findById(idReserva).get();
         publisher.publishEvent(reserva.realizarCheckin());
-        
+
+    }
+
+    @Override
+    public void realizarCheckout(UUID idReserva) {
+        Reserva reserva = repository.findById(idReserva).get();
+        publisher.publishEvent(reserva.realizadoCheckout());
+
     }
 
     @Override
@@ -38,5 +45,5 @@ public class ReservaService implements IReservaService {
         Reserva reserva = new Reserva(UUID.randomUUID(), quarto, ReservaStatus.CONFIRMADA);
         return repository.save(reserva);
     }
-    
+
 }

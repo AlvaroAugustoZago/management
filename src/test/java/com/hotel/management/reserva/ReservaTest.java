@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import com.hotel.management.hotel.quarto.domain.Quarto;
 import com.hotel.management.reserva.domain.Reserva;
 import com.hotel.management.reserva.domain.events.CheckinRealizado;
+import com.hotel.management.reserva.domain.events.CheckoutRealizado;
 
 public class ReservaTest {
 
@@ -21,7 +22,7 @@ public class ReservaTest {
                 .precoPorNoite(95d)
                 .build();
 
-        Reserva reserva = Reserva.of(quarto);
+        Reserva reserva = Reserva.of(quarto, null);
 
         assertNotNull(reserva);
         assertNotNull(reserva.getId());
@@ -36,9 +37,25 @@ public class ReservaTest {
                 .precoPorNoite(95d)
                 .build();
 
-        Reserva reserva = Reserva.of(quarto);
+        Reserva reserva = Reserva.of(quarto, null);
 
         CheckinRealizado evt = reserva.realizarCheckin();
+        assertNotNull(evt);
+        assertNotNull(evt.getQuarto());
+    }
+
+    @Test
+    void dadosReservaDeveRealizarCheckout() {
+        Quarto quarto = Quarto.builder()
+                .tipo(Quarto.Tipo.STANDARD)
+                .capacidade(4)
+                .descricao("Quarto para 4 pessoas")
+                .precoPorNoite(95d)
+                .build();
+
+        Reserva reserva = Reserva.of(quarto, null);
+
+        CheckoutRealizado evt = reserva.realizadoCheckout();
         assertNotNull(evt);
         assertNotNull(evt.getQuarto());
     }
