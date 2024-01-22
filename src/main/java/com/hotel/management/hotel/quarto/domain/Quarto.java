@@ -1,6 +1,8 @@
 package com.hotel.management.hotel.quarto.domain;
 
+import java.sql.Date;
 import java.util.UUID;
+import java.util.function.BooleanSupplier;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,11 +35,14 @@ public final class Quarto {
     private Double precoPorNoite;
 
     @Column
+    private Date data;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private Estado estado;
 
     @Builder
-    public Quarto(Tipo tipo, Integer capacidade, String descricao, Double precoPorNoite) {
+    public Quarto(Tipo tipo, Integer capacidade, String descricao, Double precoPorNoite, Date data) {
         this.id = UUID.randomUUID();
         this.tipo = tipo;
         this.capacidade = capacidade;
@@ -54,6 +59,7 @@ public final class Quarto {
             this.descricao = form.getDescricao();
             this.precoPorNoite = form.getPrecoPorNoite();
             this.estado = form.getEstado();
+
         });
     }
 
@@ -71,6 +77,19 @@ public final class Quarto {
 
     public enum Estado {
         OCUPADO,
-        DESOCUPADO;
+        DESOCUPADO, RESERVADO, SELECIONADO;
+    }
+
+    public enum Datas {
+        INDISPONIVEL,
+        DISPONIVEL;
+    }
+
+    public BooleanSupplier isPresent() {
+        throw new UnsupportedOperationException("Unimplemented method 'isPresent'");
+    }
+
+    private Object quartoSelecionado() {
+        throw new UnsupportedOperationException("Unimplemented method 'quartoSelecionado'");
     }
 }

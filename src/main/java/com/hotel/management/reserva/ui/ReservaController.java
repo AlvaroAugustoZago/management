@@ -32,7 +32,7 @@ public class ReservaController {
     @PostMapping("/")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> reservar() {
-        
+
         service.reservar(UUID.fromString("4ec0c255-b8a8-4f09-b131-bb6d1eb4d553"));
 
         return ResponseEntity.created(fromCurrentRequest()
@@ -42,12 +42,24 @@ public class ReservaController {
 
     }
 
-
     @PostMapping("/{id}/checkin")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> realizarCheckin(@PathVariable UUID id) {
-        
+
         service.realizarCheckin(id);
+
+        return ResponseEntity.created(fromCurrentRequest()
+                .path("/")
+                .build().toUri())
+                .build();
+
+    }
+
+    @PostMapping("/{id}/checkout")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> realizarCheckout(@PathVariable UUID id) {
+
+        service.realizarCheckout(id);
 
         return ResponseEntity.created(fromCurrentRequest()
                 .path("/")
