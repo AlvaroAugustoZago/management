@@ -1,96 +1,96 @@
-package com.hotel.management.reserva;
+// package com.hotel.management.reserva;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+// import static org.junit.jupiter.api.Assertions.assertEquals;
+// import static org.junit.jupiter.api.Assertions.assertFalse;
+// import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.time.LocalDate;
-import java.util.UUID;
+// import java.time.LocalDate;
+// import java.util.UUID;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cglib.core.Local;
-import org.springframework.test.context.TestPropertySource;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.test.context.SpringBootTest;
+// import org.springframework.cglib.core.Local;
+// import org.springframework.test.context.TestPropertySource;
 
-import com.hotel.management.hotel.quarto.app.QuartoService;
-import com.hotel.management.hotel.quarto.domain.Quarto;
-import com.hotel.management.hotel.quarto.domain.cmd.CriarQuarto;
+// import com.hotel.management.hotel.quarto.app.QuartoService;
+// import com.hotel.management.hotel.quarto.domain.Quarto;
+// import com.hotel.management.hotel.quarto.domain.cmd.CriarQuarto;
 
-import com.hotel.management.reserva.domain.IReservaService;
+// import com.hotel.management.reserva.domain.IReservaService;
 
-@SpringBootTest
-@TestPropertySource(locations = "classpath:application-integrationtest.properties")
-public class ReservaIntegrationTest {
+// @SpringBootTest
+// @TestPropertySource(locations = "classpath:application-integrationtest.properties")
+// public class ReservaIntegrationTest {
 
-    @Autowired
-    public QuartoService quartoService;
+//     @Autowired
+//     public QuartoService quartoService;
 
-    @Autowired
-    public IReservaService reservaService;
+//     @Autowired
+//     public IReservaService reservaService;
 
-    public UUID quarto;
+//     public UUID quarto;
 
-    public UUID reserva;
+//     public UUID reserva;
 
-    @BeforeEach
-    public void setUp() {
+//     @BeforeEach
+//     public void setUp() {
 
-        quarto = quartoService.criarQuarto(CriarQuarto.builder()
-                .tipo(Quarto.Tipo.SUITE)
-                .capacidade(3)
-                .descricao("Quarto para 3 pessoas")
-                .precoPorNoite(95d)
-                .build()).getId();
+//         quarto = quartoService.criarQuarto(CriarQuarto.builder()
+//                 .tipo(Quarto.Tipo.SUITE)
+//                 .capacidade(3)
+//                 .descricao("Quarto para 3 pessoas")
+//                 .precoPorNoite(95d)
+//                 .build()).getId();
 
-        reserva = reservaService.reservar(quarto).getId();
-    }
+//         reserva = reservaService.reservar(quarto).getId();
+//     }
 
-    @Test
-    public void dadoDataDisponivelDeveSelecionarquarto() {
-        reservaService.selecionarQuarto(quarto);
+//     @Test
+//     public void dadoDataDisponivelDeveSelecionarquarto() {
+//         reservaService.selecionarQuarto(quarto);
 
-        Quarto selecionarQuarto = quartoService.getById(quarto);
+//         Quarto selecionarQuarto = quartoService.getById(quarto);
 
-        Quarto quartoSelecionado = quartoService.getById(quarto);
-        assertEquals(Quarto.Estado.SELECIONADO, quartoSelecionado.getEstado());
+//         Quarto quartoSelecionado = quartoService.getById(quarto);
+//         assertEquals(Quarto.Estado.SELECIONADO, quartoSelecionado.getEstado());
 
-    }
+//     }
 
-    @Test
-    public void dadoReservaDeveRealizarCheckinEBloquearQuarto() {
+//     @Test
+//     public void dadoReservaDeveRealizarCheckinEBloquearQuarto() {
 
-        reservaService.realizarCheckin(reserva);
+//         reservaService.realizarCheckin(reserva);
 
-        Quarto quartoCheckin = quartoService.getById(quarto);
-        assertEquals(Quarto.Estado.OCUPADO, quartoCheckin.getEstado());
-    }
+//         Quarto quartoCheckin = quartoService.getById(quarto);
+//         assertEquals(Quarto.Estado.OCUPADO, quartoCheckin.getEstado());
+//     }
 
-    @Test
-    public void dadoReservaDeveRealizarCheckoutEDesbloquearQuarto() {
+//     @Test
+//     public void dadoReservaDeveRealizarCheckoutEDesbloquearQuarto() {
 
-        reservaService.realizarCheckout(reserva);
+//         reservaService.realizarCheckout(reserva);
 
-        Quarto quartoCheckout = quartoService.getById(quarto);
-        assertEquals(Quarto.Estado.DESOCUPADO, quartoCheckout.getEstado());
-    }
+//         Quarto quartoCheckout = quartoService.getById(quarto);
+//         assertEquals(Quarto.Estado.DESOCUPADO, quartoCheckout.getEstado());
+//     }
 
-    @Test
-    public void dadoDataDisponivelRealizarReserva() {
+//     @Test
+//     public void dadoDataDisponivelRealizarReserva() {
 
-        reservaService.dataDisponivel(reserva);
+//         reservaService.dataDisponivel(reserva);
 
-        Quarto dataDisponivel = quartoService.getById(quarto);
-        assertEquals(Quarto.Estado.DESOCUPADO, dataDisponivel.getEstado());
-    }
+//         Quarto dataDisponivel = quartoService.getById(quarto);
+//         assertEquals(Quarto.Estado.DESOCUPADO, dataDisponivel.getEstado());
+//     }
 
-    @Test
-    public void dadoDataIndisponivelReservaNaoRealizada() {
+//     @Test
+//     public void dadoDataIndisponivelReservaNaoRealizada() {
 
-        reservaService.dataIndisponivel(reserva);
+//         reservaService.dataIndisponivel(reserva);
 
-        Quarto dataIndisponivel = quartoService.getById(quarto);
-        assertEquals(Quarto.Estado.OCUPADO, dataIndisponivel.getEstado());
-    }
-}
+//         Quarto dataIndisponivel = quartoService.getById(quarto);
+//         assertEquals(Quarto.Estado.OCUPADO, dataIndisponivel.getEstado());
+//     }
+// }

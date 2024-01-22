@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import com.hotel.management.hotel.quarto.domain.Quarto;
+import com.hotel.management.reserva.app.cmd.IniciarReserva;
 import com.hotel.management.reserva.app.cmd.RealizarCheckin;
 
 public interface IReservaService {
@@ -13,13 +14,14 @@ public interface IReservaService {
     public Reserva reservar(UUID quarto);
 
     public void realizarCheckout(UUID reserva);
+    public void iniciarReserva(IniciarReserva cmd);
 
-    public Quarto realizarReserva(UUID quarto, LocalDate dataReserva);
+    // public Quarto realizarReserva(UUID quarto, LocalDate dataReserva);
 
-    public void selecionarQuarto(UUID quarto);
+    // public void selecionarQuarto(UUID quarto);
 
-    public void dataDisponivel(UUID reserva);
+    // public void dataDisponivel(UUID reserva);
 
-    public void dataIndisponivel(UUID reserva);
+    // public void dataIndisponivel(UUID reserva);
 
 }
